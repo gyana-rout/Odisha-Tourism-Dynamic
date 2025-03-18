@@ -34,19 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_place'])) {
             VALUES ('$name', '$description', '$media', '$photo', '$latitude', '$longitude')";
     
     if ($conn->query($sql) === TRUE) {
-        echo "New place added successfully!";
+        echo "<script>alert('New place added successfully!');</script>";
     } else {
         echo "Error: " . $conn->error;
     }
-}
-
-
-// Delete a place
-if (isset($_GET['delete_id'])) {
-    $id = $_GET['delete_id'];
-    $conn->query("DELETE FROM tourist_places WHERE id='$id'");
-    header("Location: manage_places.php");
-    exit();
 }
 
 // Fetch all places
@@ -60,6 +51,8 @@ $result = $conn->query("SELECT * FROM tourist_places");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Tourist Places</title>
     <link rel="stylesheet" href="../styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -153,12 +146,13 @@ $result = $conn->query("SELECT * FROM tourist_places");
     <div class="container">
         <h2>Add New Place</h2>
         <form method="post" enctype="multipart/form-data">
-            <input type="text" name="name" placeholder="Place Name" required>
+            <input type="text" id="place-name" name="name" placeholder="Enter Place Name" required>
+            <button type="button" id="fetch-location" class="add-btn">Get Coordinates</button>
             <textarea name="description" placeholder="Description" required></textarea>
             <label>Video</label><input type="file" name="media" required>
             <label>Photo</label><input type="file" name="photo" required>
-            <input type="text" name="latitude" placeholder="Latitude" required>
-            <input type="text" name="longitude" placeholder="Longitude" required>
+            <input type="text" id="latitude" name="latitude" placeholder="Latitude" required readonly>
+            <input type="text" id="longitude" name="longitude" placeholder="Longitude" required readonly>
             <button type="submit" name="add_place" class="add-btn">Add Place</button>
         </form>
     </div>
@@ -182,18 +176,18 @@ $result = $conn->query("SELECT * FROM tourist_places");
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['description']; ?></td>
                     <td>
-    <?php 
-    $file_extension = pathinfo($row['media'], PATHINFO_EXTENSION);
-    $video_extensions = ['mp4', 'avi', 'mov', 'wmv']; // List of video extensions
+                        <?php 
+                        $file_extension = pathinfo($row['media'], PATHINFO_EXTENSION);
+                        $video_extensions = ['mp4', 'avi', 'mov', 'wmv']; 
 
-    if (in_array($file_extension, $video_extensions)) { ?>
-        <video width="100" controls>
-            <source src="../images/<?php echo $row['media']; ?>" type="video/<?php echo $file_extension; ?>">
-        </video>
-    <?php } else { ?>
-        <img src="../images/<?php echo $row['media']; ?>" width="100">
-    <?php } ?>
-</td>
+                        if (in_array($file_extension, $video_extensions)) { ?>
+                            <video width="100" controls>
+                                <source src="../videos/<?php echo $row['media']; ?>" type="video/<?php echo $file_extension; ?>">
+                            </video>
+                        <?php } else { ?>
+                            <img src="../images/<?php echo $row['media']; ?>" width="100">
+                        <?php } ?>
+                    </td>
                     <td>
                         <img src="../images/<?php echo $row['photo']; ?>" width="100">
                     </td>
@@ -206,5 +200,26 @@ $result = $conn->query("SELECT * FROM tourist_places");
             <?php } ?>
         </table>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#fetch-location").click(function(){
+                var location = $("#place-name").val();
+                if (location !== "") {
+                    $.post("get_location.php", { location: location }, function(data) {
+                        var result = JSON.parse(data);
+                        if (result.success) {
+                            $("#latitude").val(result.latitude);
+                            $("#longitude").val(result.longitude);
+                        } else {
+                            alert("Location not found!");
+                        }
+                    });
+                } else {
+                    alert("Please enter a place name.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

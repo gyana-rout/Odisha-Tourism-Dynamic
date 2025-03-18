@@ -42,27 +42,7 @@
             width: 100%;
             border-radius: 10px;
         }
-        nav {
-            background: #ff5722;
-            padding: 15px;
-            text-align: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-        nav ul li {
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }
+        
     </style>
 </head>
 <body>
