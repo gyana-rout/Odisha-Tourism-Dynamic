@@ -1,0 +1,26 @@
+/* Root File Structure */
+
+/odisha_tourism/  (Project Root)
+├── index.php  (Main Entry Point)
+├── db_connect.php  (Database Connection)
+├── styles.css  (Styling)
+├── images/  (Image Storage)
+├── media/  (Video Storage)
+├── gallery.php  (Gallery for Images & Videos)
+├── map.php  (Interactive Map)
+├── booking.php  (Tourist Booking System)
+├── register.php  (User Registration System)
+├── login.php  (User Login System)
+├── guide_booking.php  (Tour Guide Booking)
+├── districts.php  (All Districts with Culture & Festivals)
+├── admin/  (Admin Panel for Managing Data)
+    ├── admin_dashboard.php
+    ├── manage_places.php
+    ├── manage_users.php
+    ├── manage_guides.php
+├── includes/  (Reusable Components)
+    ├── header.php
+    ├── footer.php
+
+
+/* db_connect.php - Database Connection */
