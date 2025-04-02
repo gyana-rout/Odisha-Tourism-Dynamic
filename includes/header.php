@@ -52,6 +52,8 @@ session_start();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="gallery.php">Tourist Places</a></li>
                 <li><a href="guide_booking.php">Book a Guide</a></li>
+                <li><a href="my_booking.php">My Bookings</a></li>
+                <li><a href="near_places.php">Find Near Places</a></li>
                 <?php if (isset($_SESSION['user_id'])) { ?>
                     <li><a href="logout.php">Logout</a></li>
                 <?php } else { ?>

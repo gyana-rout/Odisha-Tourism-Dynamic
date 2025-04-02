@@ -74,8 +74,7 @@ $result = $conn->query($sql);
 
 <script>
     function bookTour(placeId) {
-        alert("Booking tour for place ID: " + placeId);
-        // Here you can redirect to a booking page, for example:
-        // window.location.href = "book_tour.php?place_id=" + placeId;
+        window.location.href = "booking.php?place_id=" + placeId;
     }
 </script>
+
