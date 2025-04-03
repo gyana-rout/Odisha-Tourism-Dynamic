@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
     </style>
 </head>
 <body>
-
+<?php include 'includes/header.php'; ?>
     <h2>Saved Tourist Places & Nearby Locations with Distance</h2>
     <div id="map"></div>
 
