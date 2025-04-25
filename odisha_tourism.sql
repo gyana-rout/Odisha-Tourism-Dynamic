@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2025 at 06:23 PM
+-- Generation Time: Apr 25, 2025 at 07:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +54,14 @@ CREATE TABLE `bookings` (
   `username` varchar(255) NOT NULL,
   `status` enum('Pending','Approved') NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `user_id`, `place_id`, `booking_date`, `username`, `status`) VALUES
+(4, 1, 1, '2025-04-25 05:38:26', 'Om Prakash Behera', 'Pending'),
+(5, 1, 2, '2025-04-25 05:38:33', 'Om Prakash Behera', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -107,7 +115,7 @@ CREATE TABLE `guide_bookings` (
 --
 
 INSERT INTO `guide_bookings` (`id`, `user_id`, `guide_id`, `booking_date`) VALUES
-(1, 1, 1, '2025-04-03 16:21:57');
+(8, 1, 1, '2025-04-25 05:38:40');
 
 -- --------------------------------------------------------
 
@@ -180,7 +188,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
-(1, 'Gyana Ranjan Rout', 'deepakrout875@gmail.com', '$2y$10$5683q38moKEW/cJ6jWU3meb0DS/vZ8UGv4qCQk7QlV1WPeAUIN4zy', '2025-03-18 09:54:41');
+(1, 'Om Prakash Behera', 'admin@gmail.com', '$2y$10$ktECegAxIvERZBIzNvLsWubOr6.VHpMTjQ6yDSsRB.j8c7rIbYVUm', '2025-04-25 05:30:09');
 
 --
 -- Indexes for dumped tables
@@ -247,7 +255,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -265,7 +273,7 @@ ALTER TABLE `guides`
 -- AUTO_INCREMENT for table `guide_bookings`
 --
 ALTER TABLE `guide_bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tourist_places`

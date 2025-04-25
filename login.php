@@ -1,20 +1,32 @@
 <?php
-include 'db_connect.php';
 session_start();
+include 'db_connect.php';
+
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
-    
-    // Check for regular user login
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
 
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
+    // Use prepared statements to prevent SQL injection
+    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows === 1) {
+        $stmt->bind_result($id, $name, $hashed_password);
+        $stmt->fetch();
+
+        if (password_verify($password, $hashed_password)) {
+            // Set session variables
+            $_SESSION['user_id'] = $id;
+            $_SESSION['name'] = $name;
+
+            // Optional: regenerate session ID to prevent session fixation
+            session_regenerate_id(true);
+
+            // Redirect to homepage
             header("Location: index.php");
             exit();
         } else {
@@ -23,8 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error = "User not found!";
     }
+
+    $stmt->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

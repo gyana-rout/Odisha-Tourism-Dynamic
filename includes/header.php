@@ -1,6 +1,7 @@
 <?php
-session_start();
+session_start(); // Always start the session at the very top
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odisha Tourism System</title>
     <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
     <style>
-         body {
+        body {
             font-family: 'Poppins', sans-serif;
             background-color: #eef2f3;
             color: #333;
@@ -45,6 +44,8 @@ session_start();
             font-weight: bold;
         }
     </style>
+</head>
+<body>
     <header>
         <h1>Odisha Tourism System</h1>
         <nav>
